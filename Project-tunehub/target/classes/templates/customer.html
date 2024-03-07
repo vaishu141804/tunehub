@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Listeners</title>
+<style>
+body {
+	background-image:
+		url("https://i.pinimg.com/564x/79/f7/5c/79f75c187818637fa47a613da7e4f9c0.jpg");
+	background-size: cover;
+	display: flex;
+	flex-direction:column;
+	justify-content: center;
+	align-items: center;
+	margin: 150px auto;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 350px;
+	height: 200px;
+	border-radius: 8px;
+	background-color: #f0f0f0;
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+		sans-serif;
+}
+
+h3 {
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+		sans-serif;
+	color: #000;
+}
+input[type="submit"] {
+	width: 120px;
+	background-color: #5ca3e0;
+	margin: 8px 0;
+	display: inline-block;
+	color: azure;
+	padding: 12px 10px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background-color: rgb(25, 87, 142);
+}
+
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<h3>Customer Home</h3>
+		<div th:unless="${ispremium}" class="non-premium">
+			<form action="pay">
+				<input type="submit" value="Get Premium">
+			</form>
+			<form action="logout" method="get">
+				<input type="submit" value="Logout">
+			</form>
+		</div>
+		<div th:if="${ispremium}" class="premium">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Artist</th>
+						<th>Genre</th>
+						<th>Play</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="song:${songs}">
+						<td th:text="${song.name}"></td>
+						<td th:text="${song.artist}"></td>
+						<td th:text="${song.genre}"></td>
+						<td><audio controls>
+								<source th:src="${song.link}">
+							</audio></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
